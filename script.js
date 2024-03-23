@@ -1,9 +1,10 @@
 let timer;
-let isRunning = false;
+let isRunning = false; // starting condition of stopwatch
 let seconds = 0;
-let laps = [];
-let secondsArr = [];
+let laps = []; // To store laps
+let secondsArr = []; // To store seconds for displaying laps
 
+// Implementation of event handler function for start/stop button
 function startStop() {
   if (isRunning) {
     clearInterval(timer);
@@ -17,7 +18,9 @@ function startStop() {
   isRunning = !isRunning;
 }
 
+// Implementation of event handler function for lap/reset button
 function lapReset() {
+  // Laps calculation when stopwatch is running
   if (isRunning) {
     secondsArr.push(seconds);
     if (secondsArr.length === 1) {
@@ -30,7 +33,9 @@ function lapReset() {
       );
     }
     updateLapsDisplay();
-  } else {
+  } 
+  // Resetting the stopwatch 
+  else {
     if (document.getElementById("lapReset").innerText === "Reset") {
       clearInterval(timer);
       seconds = 0;
@@ -42,6 +47,7 @@ function lapReset() {
   }
 }
 
+// Displaying the laps 
 function updateLapsDisplay() {
   let lapsList = document.getElementById("laps");
   lapsList.innerHTML = "";
@@ -52,11 +58,13 @@ function updateLapsDisplay() {
   });
 }
 
+// Displaying the stopwatch time
 function updateDisplay() {
   seconds++;
   document.getElementById("display").innerText = formatTime(seconds);
 }
 
+// Format in which time will be displayed 
 function formatTime(time) {
   let minutes = Math.floor((time % 360000) / 6000);
   let seconds = Math.floor((time % 6000) / 100);
